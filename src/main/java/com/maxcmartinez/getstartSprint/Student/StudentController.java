@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/student")
+@CrossOrigin("*")
 public class StudentController {
     private final StudentService studentService;
 
@@ -25,7 +26,7 @@ public class StudentController {
         return studentService.getStudent();
     }
 
-    @PostMapping
+    @PostMapping(path = "register")
     public void registerNewStudent(@RequestBody Student student){
         studentService.addNewStudent(student);
     }
@@ -34,12 +35,15 @@ public class StudentController {
     public void deleteStudent(@PathVariable("studentId") Long studentId){
         studentService.deleteStudent(studentId);
     }
-    @PutMapping(path = "{studentId}")
+
+    @PutMapping(path = "update/{studentId}")
     public void updateStudent(
             @PathVariable("studentId") Long studentId,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String email
     ){
+        System.out.println("AAAAAAAAAAAAAAAAA   "+name);
+        System.out.println("MMMMMMMMMMMMMMMMM  "+email);
         studentService.updateStudent(studentId, name, email);
     }
     /*@PutMapping
